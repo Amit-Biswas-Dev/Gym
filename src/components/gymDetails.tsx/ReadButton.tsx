@@ -21,6 +21,8 @@ const ReadButton = ({ gym }: ReadButtonProps) => {
   const handlePlan = () => {
     console.log("Plan is added.", gym);
 
+    alert("added");
+
     setReadPlan([...readPlan, gym]);
   };
 

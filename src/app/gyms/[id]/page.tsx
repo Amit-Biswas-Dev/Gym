@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { IGym } from "../../../types/gymsTypes";
 import ReadButton from "@/components/gymDetails.tsx/ReadButton";
+import SaveButton from "@/components/gymDetails.tsx/SaveButton";
 
 interface GymDetailsPageProps {
   params: Promise<{
@@ -135,7 +136,8 @@ const GymDetailsPage = async ({ params }: GymDetailsPageProps) => {
           </div>
 
           <div className="card-actions mt-6">
-            <ReadButton></ReadButton>
+            <ReadButton gym={gym}/>
+            <SaveButton gym={gym}/>
           </div>
 
         </div>
