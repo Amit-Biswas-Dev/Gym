@@ -4,6 +4,7 @@
 import { GymContext } from "@/context/gymContext";
 import { IGym } from "@/types/gymsTypes";
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 
 interface SaveButtonProps {
   gym: IGym;
@@ -19,21 +20,28 @@ const SaveButton = ({ gym }: SaveButtonProps) => {
   const { readSave, setReadSave } = context;
 
   const handleSave = () => {
-    console.log("Workout is saved.", gym);
+    const alreadySaved = readSave.some(
+      (item) => item.id === gym.id
+    );
 
-    alert("Saved");
+    if (alreadySaved) {
+      toast.info("This workout is already saved!");
+      return;
+    }
 
     setReadSave([...readSave, gym]);
+    toast.success("Workout saved successfully!");
   };
 
   return (
     <button
       onClick={handleSave}
-      className="btn btn-secondary"
+      className="btn border-none bg-[#CCFF00] text-[#1E1E1E] hover:bg-[#B8E600]"
     >
-      Save
+      Save for later
     </button>
   );
 };
 
 export default SaveButton;
+

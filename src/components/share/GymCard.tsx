@@ -3,6 +3,9 @@ import React from "react";
 import Image from "next/image";
 import { IGym } from "../../types/gymsTypes";
 import Link from "next/link";
+import { MdOutlineAccessTime } from "react-icons/md";
+import { CiStar } from "react-icons/ci";
+import { FaCloudscale } from "react-icons/fa6";
 
 interface GymCardProps {
   gym: IGym;
@@ -10,72 +13,78 @@ interface GymCardProps {
 
 const GymCard = ({ gym }: GymCardProps) => {
   return (
-    <div className="card bg-base-100 shadow-sm">
+    <Link href={`/gyms/${gym.id}`} className="block">
+      <div className="card h-full w-full bg-[#000000] text-[#1E1E1E] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+
+        
+        <figure className="px-5 pt-5">
+          <Image
+            src={gym.image}
+            alt={gym.name}
+            width={400}
+            height={195}
+            className="h-[195px] w-full rounded-xl object-cover"
+          />
+        </figure>
+
       
-      <figure className="px-5 pt-5">
-        <Image
-          src={gym.image}
-          alt={gym.name}
-          width={500}
-          height={300}
-          className="h-60 w-full rounded-xl object-cover"
-        />
-      </figure>
+        <div className="card-body">
 
-      <div className="card-body">
-        <h2 className="card-title">
-          {gym.name}
-        </h2>
+         
+          <div className="mt-2 flex flex-wrap gap-2 text-[#C2F800]">
+            {gym.muscleGroups.map((muscle) => (
+              <span
+                key={muscle}
+                className="badge badge-success"
+              >
+                {muscle}
+              </span>
+            ))}
+          </div>
 
-        <p className="text-sm text-gray-500">
-          {gym.description}
-        </p>
+        
+          <h2 className="card-title text-[#e9e0e0]">
+            {gym.name}
+          </h2>
 
-        <div className="mt-2 flex flex-wrap gap-2">
-          {gym.muscleGroups.map((muscle) => (
-            <span
-              key={muscle}
-              className="badge badge-success"
-            >
-              {muscle}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-          <p>
-            <strong>Difficulty:</strong> {gym.difficulty}
+         
+          <p className="text-[#9CA3AF]">
+            {gym.equipment}
           </p>
 
-          <p>
-            <strong>Duration:</strong> {gym.duration} min
-          </p>
+         
+          <hr className="my-2 border-gray-200" />
 
-          <p>
-            <strong>Sets:</strong> {gym.sets}
-          </p>
+         
+          <div className="mt-3 grid grid-cols-3 gap-2 text-sm">
 
-          <p>
-            <strong>Reps:</strong> {gym.reps}
-          </p>
+        
+            <p className="flex items-center gap-2 text-[#9CA3AF]">
+            <MdOutlineAccessTime className="text-lg" />
+            {gym.duration} min
+            </p>
 
-          <p>
-            <strong>Calories:</strong> {gym.caloriesBurned}
-          </p>
 
-          <p>
-            <strong>Rating:</strong> ⭐ {gym.rating}
-          </p>
-        </div>
-
-        <div className="card-actions mt-4">
-           <Link href={`/gyms/${gym.id}`} className="btn btn-primary w-full" > View Workout </Link>
           
+            <p className="flex items-center gap-2 text-[#9CA3AF]">
+             
+               <FaCloudscale />
+              {gym.caloriesBurned}
+            </p>
+
+          
+            <p className="flex items-center gap-2 text-[#9CA3AF]">
+              
+                <CiStar />
+               {gym.rating}
+            </p>
+
+          </div>
+
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default GymCard;
-

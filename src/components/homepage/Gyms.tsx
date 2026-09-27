@@ -33,10 +33,13 @@ const Gyms = () => {
   }, []);
 
   return (
-    <div className="container mx-auto my-17.5">
-      <h2 className="mb-4 text-2xl font-bold">Gyms</h2>
+    <div className="container mx-auto my-17.5 ">
+     <div className="p-4 my-4">
+       <h2 className="mb-4 text-2xl font-bold">THE LIABRAY</h2>
+      <p className="text-[#9CA3AF]"> Twelve lifts covering every major muscle group.</p>
+     </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 ">
         {gyms.map((gym) => (
           <GymCard key={gym.id} gym={gym} />
         ))}

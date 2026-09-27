@@ -11,7 +11,7 @@ const ListedGymCard = ({ gym }: IListedGymCardProps) => {
   return (
     <div className="grid grid-rows-1 w-full overflow-hidden rounded-xl border border-base-300 bg-base-100 shadow-md transition hover:shadow-lg">
 
-      {/* Image */}
+     
       <div className="relative h-56 w-full overflow-hidden bg-base-200">
         <Image
           src={gym.image}
@@ -25,7 +25,7 @@ const ListedGymCard = ({ gym }: IListedGymCardProps) => {
         </span>
       </div>
 
-      {/* Content */}
+      
       <div className="p-5 flex flex-col gap-3">
         <h2 className="text-xl font-bold">{gym.name}</h2>
         <p className="text-sm text-base-content/70">
@@ -42,7 +42,7 @@ const ListedGymCard = ({ gym }: IListedGymCardProps) => {
           {gym.description}
         </p>
 
-        {/* Stats Grid */}
+       
         <div className="grid grid-cols-2 gap-4 border-t border-base-300 pt-4 text-center">
           <div>
             <p className="text-xs text-base-content/50">Duration</p>
@@ -63,7 +63,7 @@ const ListedGymCard = ({ gym }: IListedGymCardProps) => {
         </div>
       </div>
 
-      {/* Actions */}
+      
       <div className="flex gap-3 p-5 border-t border-base-300">
         <Link
           href={`/gyms/${gym.id}`}

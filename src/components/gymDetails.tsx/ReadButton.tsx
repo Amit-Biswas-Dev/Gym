@@ -4,6 +4,7 @@
 import { GymContext } from "@/context/gymContext";
 import { IGym } from "@/types/gymsTypes";
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 
 interface ReadButtonProps {
   gym: IGym;
@@ -19,19 +20,29 @@ const ReadButton = ({ gym }: ReadButtonProps) => {
   const { readPlan, setReadPlan } = context;
 
   const handlePlan = () => {
-    console.log("Plan is added.", gym);
+    
+    const alreadyAdded = readPlan.some(
+      (item) => item.id === gym.id
+    );
 
-    alert("added");
+    if (alreadyAdded) {
+      toast.info("This workout is already in your plan!");
+      return;
+    }
 
+    
     setReadPlan([...readPlan, gym]);
+
+    
+    toast.success("Workout added to today's plan!");
   };
 
   return (
     <button
       onClick={handlePlan}
-      className="btn btn-primary"
+      className="btn border-none bg-[#CCFF00] text-[#1E1E1E] hover:bg-[#B8E600]"
     >
-      Plan
+      Add to today's plan
     </button>
   );
 };

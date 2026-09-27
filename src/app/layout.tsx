@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Navbar from "@/components/share/Navbar";
 import Footer from "@/components/homepage/Footer";
 import GymProvider from "@/context/gymContext";
@@ -36,6 +39,12 @@ export default function RootLayout({
           {children}
 
           <Footer />
+
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            theme="dark"
+          />
         </GymProvider>
       </body>
     </html>
