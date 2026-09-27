@@ -7,6 +7,7 @@ import { IGym } from "@/types/gymsTypes";
 import Link from "next/link";
 import React, { useContext, useState, useMemo } from "react";
 import { FiX } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 const ListedPlanPage = () => {
   const context = useContext(GymContext);
@@ -20,12 +21,7 @@ const ListedPlanPage = () => {
     readSave = [],
     removeFromPlan,
     removeFromSave,
-  } = context as {
-    readPlan: IGym[];
-    readSave: IGym[];
-    removeFromPlan?: (id: number) => void;
-    removeFromSave?: (id: number) => void;
-  };
+  } = context;
 
   const [activeTab, setActiveTab] = useState<"plan" | "saved">("saved");
 
@@ -33,7 +29,6 @@ const ListedPlanPage = () => {
     "rating" | "duration" | "calories"
   >("duration");
 
-  
   const totalExercises = readPlan.length;
 
   const totalMinutes = readPlan.reduce(
@@ -46,7 +41,6 @@ const ListedPlanPage = () => {
     0
   );
 
-  
   const sortGyms = (gyms: IGym[]) => {
     const sortedGyms = [...gyms];
 
@@ -70,20 +64,19 @@ const ListedPlanPage = () => {
     [currentList, sortBy]
   );
 
-  
   const handleRemove = (id: number) => {
     if (activeTab === "plan") {
-      removeFromPlan?.(id);
+      removeFromPlan(id);
+      toast.success("Workout removed from today's plan!");
     } else {
-      removeFromSave?.(id);
+      removeFromSave(id);
+      toast.success("Workout removed from saved!");
     }
   };
 
   return (
     <div className="min-h-screen bg-[#0b0f17] px-6 py-8 font-sans text-white">
       <div className="mx-auto max-w-6xl space-y-8">
-
-        
         <div>
           <h1 className="text-3xl font-extrabold uppercase tracking-wide">
             MY PLAN
@@ -94,9 +87,7 @@ const ListedPlanPage = () => {
           </p>
         </div>
 
-        
         <div className="grid grid-cols-3 rounded-xl border border-gray-800 bg-[#111827] p-6 text-center md:text-left">
-
           <div className="border-r border-gray-800 pr-4">
             <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
               Exercises
@@ -126,15 +117,10 @@ const ListedPlanPage = () => {
               {totalCalories}
             </p>
           </div>
-
         </div>
 
-        
         <div className="flex flex-col items-center justify-between gap-4 py-2 sm:flex-row">
-
-         
           <div className="flex w-full rounded-lg border border-gray-800 bg-[#111827] p-1 sm:w-auto">
-
             <button
               onClick={() => setActiveTab("plan")}
               className={`rounded-md px-5 py-2 text-sm font-semibold transition-all ${
@@ -156,10 +142,8 @@ const ListedPlanPage = () => {
             >
               Saved
             </button>
-
           </div>
 
-          
           <div className="flex items-center gap-2 text-sm text-gray-400">
             <span>Sort By</span>
 
@@ -180,25 +164,18 @@ const ListedPlanPage = () => {
               <option value="calories">Calories Burned</option>
             </select>
           </div>
-
         </div>
 
         <div className="flex min-h-[300px] items-center justify-center rounded-2xl border border-gray-800 bg-[#111827] p-6 md:p-8">
-
           {sortedList.length > 0 ? (
-
             <div className="grid w-full grid-cols-1 gap-4">
-
               {sortedList.map((gym: IGym) => (
-
                 <div
                   key={gym.id}
                   className="group relative"
                 >
-
                   <GymCard gym={gym} />
 
-                 
                   <button
                     onClick={(e) => {
                       e.preventDefault();
@@ -210,18 +187,11 @@ const ListedPlanPage = () => {
                   >
                     <FiX className="h-5 w-5" />
                   </button>
-
                 </div>
-
               ))}
-
             </div>
-
           ) : (
-
-           
             <div className="space-y-4 py-8 text-center">
-
               <h3 className="text-xl font-extrabold uppercase tracking-wide text-white">
                 NOTHING HERE YET
               </h3>
@@ -231,26 +201,19 @@ const ListedPlanPage = () => {
               </p>
 
               <div className="pt-2">
-
                 <Link
                   href="/gyms"
                   className="inline-block rounded-full bg-[#ccff00] px-6 py-3 font-bold text-black shadow-lg transition-all hover:bg-[#b3e600]"
                 >
                   Go to workouts
                 </Link>
-
               </div>
-
             </div>
-
           )}
-
         </div>
-
       </div>
     </div>
   );
 };
 
 export default ListedPlanPage;
-
