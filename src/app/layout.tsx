@@ -1,8 +1,11 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
 import Navbar from "@/components/share/Navbar";
 import Footer from "@/components/homepage/Footer";
+import GymProvider from "@/context/gymContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,13 +29,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable}`}
-      >
-        <Navbar />
-        {children}
-        <Footer/>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <GymProvider>
+          <Navbar />
+
+          {children}
+
+          <Footer />
+        </GymProvider>
       </body>
     </html>
   );
 }
+
